@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radio Quality - Radiografia de Qualidade</title>
+    <style>
+        :root {
+            --primary: #000000;
+            --secondary: #FFD700;
+            --accent: #FF8C00;
+            --light: #F5F5F5;
+            --dark: #121212;
+            --text: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--secondary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(to right, var(--primary) 0%, var(--dark) 100%);
+            color: white;
+            padding: 12rem 5% 8rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://scontent.fbau4-1.fna.fbcdn.net/v/t39.30808-6/475506995_1162009295933678_2162434737679383076_n.jpg?stp=dst-jpg_s960x960_tt6&_nc_cat=101&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=SbNAx2yGWtIQ7kNvwHlIcNs&_nc_oc=AdkZlUe_tmHE4eG-K3BAgutSGPEF9lIyR-B_U-F6EGCi44_glXbef3vTeIk-8qPew_M&_nc_zt=23&_nc_ht=scontent.fbau4-1.fna&_nc_gid=8oeEbxg076Pru0mIvwd--Q&oh=00_AfQ16XjOkQp4IjO2sHMzNURGJ299eOcgmhtzKeFlGNFjag&oe=687C1754') no-repeat center center;
+            background-size: cover;
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: var(--primary);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            border: 2px solid var(--secondary);
+        }
+
+        .cta-button:hover {
+            background-color: transparent;
+            color: var(--secondary);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 6rem 5%;
+            background-color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background-color: var(--secondary);
+            bottom: -10px;
+            left: 25%;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background-color: var(--light);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .service-card:hover .card-image img {
+            transform: scale(1.1);
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-content h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .card-content p {
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .read-more {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+
+        /* About Section */
+        .about {
+            padding: 6rem 5%;
+            background-color: var(--light);
+        }
+
+        .about-container {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .about-content {
+            flex: 1;
+        }
+
+        .about-content h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-content p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 5%;
+            background-color: white;
+        }
+
+        .features-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            background-color: var(--light);
+        }
+
+        .feature-icon {
+            flex-shrink: 0;
+            width: 60px;
+            height: 60px;
+            background-color: var(--secondary);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .feature-content h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-content p {
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 6rem 5%;
+            background-color: var(--light);
+            text-align: center;
+        }
+
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .testimonial-item {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            position: absolute;
+            width: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .testimonial-item.active {
+            opacity: 1;
+            position: relative;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .author-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .author-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .author-info h4 {
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .author-info p {
+            color: var(--text);
+            font-size: 0.9rem;
+        }
+
+        .slider-controls {
+            margin-top: 2rem;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #ccc;
+            display: inline-block;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        .slider-dot.active {
+            background-color: var(--secondary);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 6rem 5%;
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .contact-container {
+            display: flex;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-info h2 {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-info p {
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .contact-details {
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--secondary);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+
+        .contact-map {
+            flex: 1;
+        }
+
+        .contact-map iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+            border-radius: 10px;
+        }
+
+        .contact-form {
+            margin-top: 3rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 5px;
+            border: none;
+            background-color: #333;
+            color: white;
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background-color: var(--secondary);
+            color: var(--primary);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links li {
+            margin: 0 1rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+
+        .social-icons {
+            margin-bottom: 1.5rem;
+        }
+
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #333;
+            color: white;
+            border-radius: 50%;
+            margin: 0 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background-color: var(--secondary);
+            color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInLeft {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .animate-fade {
+            animation: fadeIn 1s ease forwards;
+        }
+
+        .animate-left {
+            animation: slideInLeft 0.8s ease forwards;
+        }
+
+        .animate-right {
+            animation: slideInRight 0.8s ease forwards;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            .about-container, .contact-container {
+                flex-direction: column;
+            }
+            
+            .contact-map {
+                margin-top: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--dark);
+                padding: 1rem;
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 0.5rem 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 10rem 5% 6rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-links {
+                flex-direction: column;
+            }
+
+            .footer-links li {
+                margin: 0.5rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <a href="#" class="logo">
+                <img src="./logo1.png" class="logo-icon"></span>
+                Radio Quality
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Serviços</a></li>
+                <li><a href="#about">Sobre</a></li>
+                <li><a href="#features">Diferenciais</a></li>
+                <li><a href="#contact">Contato</a></li>
+            </ul>
+            <div class="hamburger">
+                <span>☰</span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content animate-fade">
+            <h1 class="animate-left">Radiografia de Qualidade</h1>
+            <p class="animate-right">Tecnologia avançada e atendimento humanizado para garantir os melhores resultados em diagnóstico por imagem.</p>
+            <a href="#contact" class="cta-button animate-fade">Agende seu Exame</a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="section-title">
+            <h2>Nossos Serviços</h2>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="card-image">
+                    <img src="./Radiografia Panorâmica.webp" alt="Médico realizando ultrassom em paciente em moderno ambiente hospitalar" />
+                </div>
+                <div class="card-content">  
+                    <h3>Radiografia Panorâmica</h3> 
+                    <p>A radiografia panorâmica permite a reprodução da maxila e mandíbula em um filme, com única exposição aos Raios X. Ela possui um portfólio amplo de indicações e vantagens que a tornam o exame complementar mais utilizado na Odontologia até os dias atuais.</p>
+                    <a href="#" class="read-more">Saiba mais →</a>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="card-image">
+                    <img src="./Telerradiografia.webp" alt="Máquina de ressonância magnética moderna com paciente sendo preparado" />
+                </div>
+                <div class="card-content">
+                    <h3>Telerradiografia</h3>
+                    <p>É uma radiografia lateral ou frontal da face. É um exame utilizado na ortodontia, ortopedia facial e também na cirurgia ortognática que tem como finalidade avaliar a relação entre os ossos da face e dentes.</p>
+                    <a href="#" class="read-more">Saiba mais →</a>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="card-image">
+                    <img src="./tomografia.webp" alt="Equipamento de tomografia computadorizada com paciente em posição" />
+                </div>
+                <div class="card-content">
+                    <h3>Tomografia Computadorizada</h3>
+                    <p>O exame é rápido, indolor e com baixa dose de radiação, as imagens possuem alto padrão de qualidade, permitindo um diagnóstico em 3D com precisão. A aquisição do exame é realizada em aproximadamente 3 minutos.</p>
+                    <a href="#" class="read-more">Saiba mais →</a>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="card-image">
+                    <img src="./Documentação Ortodôntica.webp" alt="Técnico ajustando máquina de raio-x com paciente em ambiente hospitalar" />
+                </div>
+                <div class="card-content">
+                    <h3>Documentação Ortodôntica</h3>
+                    <p>Conjunto de exames que fornecem uma visão do crescimento facial e do complexo maxilo-mandibular do paciente. A captura da oclusão é realizada através de scaneamento intraoral , excluindo a indesejável moldagem tradicional.</p>
+                    <a href="#" class="read-more">Saiba mais →</a>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="card-image">
+                    <img src="./Documentação Periodontal.webp" alt="Técnico ajustando máquina de raio-x com paciente em ambiente hospitalar" />
+                </div>
+                <div class="card-content">
+                    <h3>Documentação Periodontal</h3>
+                    <p>É solicitada quando há a necessidade de analisar e diagnosticar problemas na gengiva. É composta por radiografias periapicais da boca toda, uma radiografia panorâmica e , quando solicitado escaneamento intraoral.</p>
+                    <a href="#" class="read-more">Saiba mais →</a>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="card-image">
+                    <img src="./Planigrafia de ATM.webp" alt="Técnico ajustando máquina de raio-x com paciente em ambiente hospitalar" />
+                </div>
+                <div class="card-content">
+                    <h3>Planigrafia de ATM</h3>
+                    <p>É um exame realizado com a boca aberta e fechada para a obtenção de imagens das estruturas ósseas da ATM ( articulação temporo-mandibular). É indicado para avaliar a integridade e o posicionamento da cabeça da mandíbula na cavidade articular.</p>
+                    <a href="#" class="read-more">Saiba mais →</a>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="card-image">
+                    <img src="./Escaneamento Intraoral.webp" alt="Técnico ajustando máquina de raio-x com paciente em ambiente hospitalar" />
+                </div>
+                <div class="card-content">
+                    <h3>Escaneamento Intraoral</h3>
+                    <p>É utilizado para substituir a indesejável moldagem tradicional com maior agilidade, precisão e sem o desconforto causado pela famosa “massinha”. Para os profissionais o escaneamento é excelente pois pode-se visualizar a oclusão, preparos protéticos com o recurso 3D e planejar-se com maior segurança e agilidade.</p>
+                    <a href="#" class="read-more">Saiba mais →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-container">
+            <div class="about-image animate-left">
+                <img src="./radio01_16.jpg" alt="Equipe médica sorridente em moderno ambiente de trabalho na Radio Quality" />
+            </div>
+            <div class="about-content animate-right">
+                <h2>Sobre Nós</h2>
+                <p>A cultura de gestão e excelência no atendimento aos pacientes e profissionais tem se tornado um grande diferencial da RadioQuality como referência de atendimento e qualidade diagnóstica.</p>
+                <p>Com equipe altamente qualificada, temos como objetivo, contribuir para a melhoria do cotidiano dos cirurgiões dentistas, estendendo seus benefícios para todas as especialidades odontológicas.</p>
+                <p>Contamos com equipamentos de ponta para resultados precisos, ambiente confortável e acessível, para proporcionar a melhor experiência para os pacientes.</p>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-number">Missão</div>
+                        <div class="stat-label">
+                            <p>Nossa Missão é comprometimento na elaboração de laudos precisos tornando-nos referência em exatidão e assistência de qualidade.</p>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">VISÃO</div>
+                        <div class="stat-label">
+                            <p>Temos como Visão ter o reconhecimento regional em inovação na área de diagnóstico odontológico digital proporcionando a todos, acesso aos serviços de qualidade em imagem, compromisso com o meio ambiente e acessibilidade.</p>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">VALORES</div>
+                        <div class="stat-label">
+                            <p>Nossos Valores são ética, responsabilidade social e ambiental, melhoria continua, inovação e respeito.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="section-title">
+            <h2>Porque Escolher a Radio Quality?</h2>
+        </div>
+        <div class="features-list">
+            <div class="feature-item">
+                <div class="feature-icon">✓</div>
+                <div class="feature-content">
+                    <h3>Tecnologia de Ponta</h3>
+                    <p>Equipamentos modernos e atualizados periodicamente para garantir imagens de alta qualidade.</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">✓</div>
+                <div class="feature-content">
+                    <h3>Resultados Rápidos</h3>
+                    <p>Laudos entregues em até 24 horas via plataforma digital, sem necessidade de retorno ao local.</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">✓</div>
+                <div class="feature-content">
+                    <h3>Profissionais Especializados</h3>
+                    <p>Equipe de radiologistas com titulação e experiência para um diagnóstico preciso.</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">✓</div>
+                <div class="feature-content">
+                    <h3>Preços Competitivos</h3>
+                    <p>Convênios com todos os planos de saúde e preços acessíveis para exames particulares.</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">✓</div>
+                <div class="feature-content">
+                    <h3>Atendimento Humanizado</h3>
+                    <p>Ambiente acolhedor e equipe preparada para tornar sua experiência mais confortável.</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">✓</div>
+                <div class="feature-content">
+                    <h3>Segurança Garantida</h3>
+                    <p>Protocolos rígidos de higiene e biossegurança em todas as nossas unidades.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="section-title">
+            <h2>O que Nossos Pacientes Dizem</h2>
+        </div>
+        <div class="testimonial-slider">
+            <div class="testimonial-item active">
+                <p class="testimonial-text">"Fiquei impressionado com a qualidade do atendimento e com a rapidez dos resultados. O ambiente é super moderno e todos foram muito atenciosos."</p>
+                <div class="testimonial-author">
+                    <div class="author-image">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/935efd9d-7637-4405-b292-58154d189f5a.png" alt="Homem de 45 anos sorrindo, cliente satisfeito da Radio Quality" />
+                    </div>
+                    <div class="author-info">
+                        <h4>Carlos Silva</h4>
+                        <p>Paciente desde 2018</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-item">
+                <p class="testimonial-text">"A Radio Quality foi recomendada pelo meu médico e superou todas as expectativas. Os exames foram detalhados e o atendimento foi acima da média."</p>
+                <div class="testimonial-author">
+                    <div class="author-image">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/3c43e6d0-46bc-4a17-86e1-b594e520f024.png" alt="Mulher de 35 anos sorrindo, cliente satisfeita da Radio Quality" />
+                    </div>
+                    <div class="author-info">
+                        <h4>Ana Oliveira</h4>
+                        <p>Paciente desde 2020</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-item">
+                <p class="testimonial-text">"Como médico, sempre indico a Radio Quality para meus pacientes pela qualidade dos laudos e pela infraestrutura de ponta que oferecem."</p>
+                <div class="testimonial-author">
+                    <div class="author-image">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f3fa4a13-cdc6-42f3-81ac-8f5651ab3020.png" alt="Médico de jaleco branco sorrindo, profissional que recomenda a Radio Quality" />
+                    </div>
+                    <div class="author-info">
+                        <h4>Dr. Fernando Costa</h4>
+                        <p>Clínico Geral</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-controls">
+                <span class="slider-dot active" data-index="0"></span>
+                <span class="slider-dot" data-index="1"></span>
+                <span class="slider-dot" data-index="2"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2>Entre em Contato</h2>
+                <p>Estamos à disposição para esclarecer dúvidas, agendar exames ou fornecer informações adicionais sobre nossos serviços.</p>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <h4>Endereço</h4>
+                            <p>R. Olávo Bilac, 256 - Centro, Jaú - SP, 17201-390</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div>
+                            <h4>Telefone</h4>
+                            <p>(14) 3418-3303</p>
+                        </div>
+                        </div>
+                        <div class="contact-item">
+                        <div class="contact-icon">📨</div>
+                        <div>
+                            <h4>Whatsapp</h4>
+                            <p>(14) 98114-0811</p>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">✉️</div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>contato@radioquality.com.br</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="message">Horário de Funcionamento</label>
+                    <div>
+                        <p>Segunda a Sexta: 08h00 ás 18h00</p>
+                        <p>Sábado: 08h00 ás 12h00</p>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-map">
+                <iframe src="https://maps.google.com/maps?q=R.%20Ol%C3%A1vo%20Bilac%2C%20256%20-%20Centro%20R.%20Ol%C3%A1vo%20Bilac%2C%20256%20-%20Centro%2C%20Ja%C3%BA%20-%20SP%2C%2017201-390&t=m&z=16&output=embed&iwloc=near" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Nome</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Telefone</label>
+                            <input type="tel" id="phone" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Mensagem</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Enviar Mensagem</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">Radio Quality</div>
+        <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#services">Serviços</a></li>
+            <li><a href="#about">Sobre</a></li>
+            <li><a href="#features">Diferenciais</a></li>
+            <li><a href="#contact">Contato</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">FAQ</a></li>
+        </ul>
+        <div class="social-icons">
+             <a href="https://www.facebook.com/radioqualityjau/">
+            <img src="./facebook.png" class="social-icon">
+        </a>
+            <a href="https://www.instagram.com/radioquality/">
+            <img src="./instagram.png" class="social-icon">
+        </a>
+        </div>
+        <p class="copyright">© 2025 Radio Quality/Arthur S. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Smooth Scrolling for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Testimonial Slider
+        const testimonials = document.querySelectorAll('.testimonial-item');
+        const dots = document.querySelectorAll('.slider-dot');
+        let currentTestimonial = 0;
+
+        function showTestimonial(index) {
+            testimonials.forEach(testimonial => testimonial.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            testimonials[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentTestimonial = index;
+        }
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', function() {
+                const index = parseInt(this.getAttribute('data-index'));
+                showTestimonial(index);
+            });
+        });
+
+        // Auto-rotate testimonials
+        setInterval(() => {
+            let nextIndex = currentTestimonial + 1;
+            if (nextIndex >= testimonials.length) nextIndex = 0;
+            showTestimonial(nextIndex);
+        }, 5000);
+
+        // Form Submission
+        const contactForm = document.getElementById('contactForm');
+        
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const message = document.getElementById('message').value;
+            
+            // Here you would typically send the form data to a server
+            // For demonstration, we'll just show an alert
+            alert(`Obrigado, ${name}! Sua mensagem foi enviada com sucesso. Entraremos em contato em breve.`);
+            
+            // Reset the form
+            contactForm.reset();
+        });
+
+        // Scroll Animation
+        window.addEventListener('scroll', function() {
+            const elements = document.querySelectorAll('.animate-fade, .animate-left, .animate-right');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+                
+                if (elementPosition < screenPosition) {
+                    element.style.opacity = 1;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
